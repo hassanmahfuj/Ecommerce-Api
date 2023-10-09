@@ -1,29 +1,35 @@
 package com.hum.ecommerceapi.entity;
 
+import java.util.Set;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.NotBlank;
 
 @Entity
 public class User {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	
+
 	private String firstName;
-	
+
 	private String lastName;
-	
-	@Column(unique=true)
+
+	@Column(unique = true)
 	@NotBlank(message = "Email is mandatory")
 	private String email;
-	
+
 	@NotBlank(message = "Password is mandatory")
 	private String password;
+
+	@OneToMany(mappedBy = "user")
+	private Set<Cart> cartItems;
 
 	public User() {
 	}
@@ -75,4 +81,5 @@ public class User {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+
 }

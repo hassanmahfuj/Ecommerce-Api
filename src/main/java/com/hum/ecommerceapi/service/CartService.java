@@ -1,6 +1,8 @@
 package com.hum.ecommerceapi.service;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -30,11 +32,15 @@ public class CartService {
 	public ResponseEntity<?> addToCart(Integer userId, Integer productId, Integer quantity) {
 		try {
 			User user = userRepository.findById(userId).get();
-			Product product = productRepository.findById(userId).get();
+			Product product = productRepository.findById(productId).get();
 
 			Cart cart = new Cart();
 			cart.setUser(user);
-			cart.setProduct(product);
+
+			Set<Product> products = new HashSet<>();
+			products.add(product);
+
+			cart.setProduct(products);
 			cart.setQuantity(quantity);
 
 			cartRepository.save(cart);

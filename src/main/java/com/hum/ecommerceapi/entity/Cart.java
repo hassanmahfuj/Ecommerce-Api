@@ -1,10 +1,14 @@
 package com.hum.ecommerceapi.entity;
 
+import java.util.Set;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
 
 @Entity
 public class Cart {
@@ -13,18 +17,20 @@ public class Cart {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 
-	@OneToOne
+	@ManyToOne
+	@JoinColumn(name = "user_id", nullable = false)
 	private User user;
 
-	@OneToOne
-	private Product product;
+	@ManyToMany
+	private Set<Product> product;
 
 	private Integer quantity;
 
 	public Cart() {
 	}
 
-	public Cart(Integer id, User user, Product product, Integer quantity) {
+	public Cart(Integer id, User user, Set<Product> product, Integer quantity) {
+		super();
 		this.id = id;
 		this.user = user;
 		this.product = product;
@@ -39,19 +45,15 @@ public class Cart {
 		this.id = id;
 	}
 
-	public User getUser() {
-		return user;
-	}
-
 	public void setUser(User user) {
 		this.user = user;
 	}
 
-	public Product getProduct() {
+	public Set<Product> getProduct() {
 		return product;
 	}
 
-	public void setProduct(Product product) {
+	public void setProduct(Set<Product> product) {
 		this.product = product;
 	}
 

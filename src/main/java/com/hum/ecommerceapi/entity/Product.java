@@ -18,7 +18,6 @@ public class Product {
 
 	private String description;
 
-	@NotBlank(message = "Price is mandatory")
 	private Double price;
 
 	public Product() {
@@ -29,6 +28,7 @@ public class Product {
 		this.name = name;
 		this.description = description;
 		this.price = price;
+
 	}
 
 	public Integer getId() {
