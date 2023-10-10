@@ -1,11 +1,8 @@
 package com.hum.ecommerceapi.controller;
 
+import com.hum.ecommerceapi.dto.Payload;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.hum.ecommerceapi.service.CartService;
 
@@ -13,17 +10,27 @@ import com.hum.ecommerceapi.service.CartService;
 @RequestMapping("/cart")
 public class CartController {
 
-	@Autowired
-	CartService cartService;
+    @Autowired
+    CartService cartService;
 
-	@GetMapping("/add")
-	public ResponseEntity<?> addToCart(@RequestParam Integer userId, @RequestParam Integer productId,
-			@RequestParam Integer quantity) {
-		return cartService.addToCart(userId, productId, quantity);
-	}
+    @PostMapping("/add")
+    public Payload addToCart(@RequestParam Integer userId, @RequestParam Integer productId,
+                             @RequestParam Integer quantity) {
+        return cartService.addToCart(userId, productId, quantity);
+    }
 
-	@GetMapping("/get")
-	public ResponseEntity<?> getCartItems(@RequestParam Integer userId) {
-		return cartService.getCartItems(userId);
-	}
+    @PutMapping("/update")
+    public Payload updateCart(@RequestParam Integer cartId, @RequestParam Integer quantity) {
+        return cartService.updateCart(cartId, quantity);
+    }
+
+    @DeleteMapping("/delete")
+    public Payload deleteFromCart(@RequestParam Integer cartId) {
+        return cartService.deleteFromCart(cartId);
+    }
+
+    @GetMapping("/get")
+    public Payload getCart(@RequestParam Integer userId) {
+        return cartService.getCart(userId);
+    }
 }
